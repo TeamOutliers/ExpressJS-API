@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const cors = require('cors');
-const mongodb = require('mongodb');
+const {initiateConnection} = require('./connector');
 
 const port = process.env.PORT || 3000;
 const dbURL = "mongodb+srv://root:12345@cluster0.ezakn.mongodb.net/test?retryWrites=true&w=majority";
@@ -79,11 +79,4 @@ app.post('/accounts', (req, res) => {
     return res.send('Aggregating from: '+req.body.dateFrom+' to '+req.body.dateTo)
 })
 
-app.listen(port, () => {
-    mongodb.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true}).then(async (client) => {
-        let data = await client.db('sample_airbnb').collection('listingsAndReviews').find({}).toArray();
-        console.log(data);
-        console.log(`Connected to MongoDB`);
-    });
-    console.log(`Server is listening on ${port}`);
-})
+app.listen(port, () => initiateConnection(dbURL))
