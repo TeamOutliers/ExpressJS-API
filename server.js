@@ -2,6 +2,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 const {initiateConnection} = require('./connector');
+const { getAllUsers } = require('./getters');
 
 const port = process.env.PORT || 3000;
 const dbURL = "mongodb+srv://root:12345@cluster0.ezakn.mongodb.net/test?retryWrites=true&w=majority";
@@ -12,7 +13,7 @@ app.use(cors());
 app.use(bodyparser.json());
 
 app.get('/', (_, res) => {
-    return res.send('Hotel Management API - Team Outliers');
+    return res.send(getAllUsers());
 })
 
 app.get('/users', (_, res) => {
