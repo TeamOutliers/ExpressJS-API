@@ -15,6 +15,46 @@ const createUser = (data) => {
     })
 }
 
+const createStaff = (data) => {
+    return new Promise((resolve, reject) => {
+        new userModel(data).save((err, msg) => {
+            if(err){
+                reject(err);
+            } else {
+                resolve(msg);
+            }
+        })
+    })
+}
+
+const createRoom = (data) => {
+    return new Promise((resolve, reject) => {
+        new userModel(data).save((err, msg) => {
+            if(err){
+                reject(err);
+            } else {
+                resolve(msg);
+            }
+        })
+    })
+}
+
+const createBill = (data) => {
+    return new Promise((resolve, reject) => {
+        new userModel(data).save((err, msg) => {
+            if(err){
+                reject(err);
+            } else {
+                resolve(msg);
+            }
+        })
+    })
+}
+
 module.exports = {
-    createUser: createUser
+    createUser: createUser,
+    createStaff: createStaff,
+    createRoom: createRoom,
+    createBill: createBill
+
 }
