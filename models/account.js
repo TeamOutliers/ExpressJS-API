@@ -6,6 +6,11 @@ const accountSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    bill_number:{
+        type: String,
+        required:true,
+        lowercase: true
+    },
     room_type: {
         type: String,
         enum: ["Luxury", "Deluxe", "Economic"],
