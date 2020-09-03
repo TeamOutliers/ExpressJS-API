@@ -17,6 +17,36 @@ const removeUser = (email) => {
     });
 }
 
+const removeStaff = (contact) => {
+    return new Promise((resolve, reject) => {
+        userModel.deleteOne({contact}, err => {
+            if(err){
+                console.err(`error while removing USER: ${err}`);
+                reject(err);
+            } else {
+                console.log(`USER removed: ${contact}`);
+                resolve(`USER removed: ${contact}`);
+            }
+        });
+    });
+}
+
+const removeRoom = (room_number) => {
+    return new Promise((resolve, reject) => {
+        userModel.deleteOne({room_number}, err => {
+            if(err){
+                console.err(`error while removing USER: ${err}`);
+                reject(err);
+            } else {
+                console.log(`USER removed: ${room_number}`);
+                resolve(`USER removed: ${room_number}`);
+            }
+        });
+    });
+}
+
 module.exports = {
-    removeUser: removeUser
+    removeUser: removeUser,
+    removeRoom: removeRoom,
+    removeStaff: removeStaff
 }
