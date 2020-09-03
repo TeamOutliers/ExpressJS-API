@@ -4,9 +4,15 @@ const { accountModel, accountSchema } = require('./models/account');
 const { roomModel, roomSchema } = require('./models/room');
 
 const getAllUsers = () => {
-    userModel.find({}, (data) => {
-        return data;
-    })
+    return new Promise((resolve, reject) => {
+        userModel.find({}, '-_id', (err, users) => {
+            if(err){
+                reject(err);
+            } else {
+                resolve(users);
+            }
+        });
+    });
 }
 
 const getUser = (userEmail) => {
