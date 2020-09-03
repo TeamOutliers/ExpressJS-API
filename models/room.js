@@ -3,17 +3,19 @@ const mongoose = require('mongoose')
 const roomSchema = new mongoose.Schema({
     room_number: {
         type: Number,
+        unique: true,
+        index: true,
         required: true
     },
     room_type: {
         type: String,
-        enum: ["Luxury", "Deluxe", "Economic"],
+        enum: ["luxury", "deluxe", "economic"],
         required: true,
         lowercase: true
     },
     bedding: {
         type: String,
-        enum: ["Single", "Double", "Suite"],
+        enum: ["single", "double", "suite"],
         required: true,
         lowercase: true
     },

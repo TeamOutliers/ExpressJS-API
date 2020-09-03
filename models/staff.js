@@ -15,11 +15,13 @@ const staffSchema = new mongoose.Schema({
     gender: {
         type: String,
         lowercase: true,
-        enum: ["M", "F", "O"],
+        enum: ["m", "f", "o"],
         required: true
     },
     contact: {
         type: String,
+        unique: true,
+        index: true,
         lowercase: true,
         required: true,
         maxlength: 14
@@ -31,7 +33,7 @@ const staffSchema = new mongoose.Schema({
     },
     designation: {
         type: String,
-        enum: ['Housekeeping', 'Pantry', 'Management'],
+        enum: ['housekeeping', 'pantry', 'management'],
         lowercase: true,
         required: true,
     },

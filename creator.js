@@ -17,7 +17,7 @@ const createUser = (data) => {
 
 const createStaff = (data) => {
     return new Promise((resolve, reject) => {
-        new userModel(data).save((err, msg) => {
+        new staffModel(data).save((err, msg) => {
             if(err){
                 reject(err);
             } else {
@@ -29,7 +29,7 @@ const createStaff = (data) => {
 
 const createRoom = (data) => {
     return new Promise((resolve, reject) => {
-        new userModel(data).save((err, msg) => {
+        new roomModel(data).save((err, msg) => {
             if(err){
                 reject(err);
             } else {
@@ -41,7 +41,7 @@ const createRoom = (data) => {
 
 const createBill = (data) => {
     return new Promise((resolve, reject) => {
-        new userModel(data).save((err, msg) => {
+        new accountModel(data).save((err, msg) => {
             if(err){
                 reject(err);
             } else {

@@ -9,11 +9,13 @@ const accountSchema = new mongoose.Schema({
     bill_number:{
         type: String,
         required:true,
+        unique: true,
+        index: true,
         lowercase: true
     },
     room_type: {
         type: String,
-        enum: ["Luxury", "Deluxe", "Economic"],
+        enum: ["luxury", "deluxe", "economic"],
         required: true,
         lowercase: true
     },
@@ -60,6 +62,10 @@ const accountSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
+        required: true
+    },
+    total: {
+        type: Number,
         required: true
     }
 }, {
