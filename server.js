@@ -2,7 +2,10 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 const {initiateConnection} = require('./connector');
-const { getAllUsers } = require('./getters');
+const getters = require('./getter');
+const updaters = require('./updater');
+const removers = require('./remover');
+const creators = require('./creator');
 
 const port = process.env.PORT || 3000;
 const dbURL = "mongodb+srv://root:12345@cluster0.ezakn.mongodb.net/test?retryWrites=true&w=majority";
@@ -13,71 +16,114 @@ app.use(cors());
 app.use(bodyparser.json());
 
 app.get('/', (_, res) => {
-    return res.send(getAllUsers());
+    return res.send("Welcome to Hotel Management API")
 })
 
 app.get('/users', (_, res) => {
-    return res.send('List of users');
+    getters.getAllUsers().then((data) => {
+        return res.send(data);
+    })
 })
 app.get('/users/:email', (req, res) => {
-    return res.send('Details of user: '+req.params.email);
+    getters.getUser(req.params.email).then((data) => {
+        return res.send(data);
+    })
 })
 app.post('/users', (req, res) => {
-    return res.send('Creating new user: '+req.body.email);
+    creators.createUser(req.body).then((data) => {
+        return res.send(data);
+    })
 })
 app.put('/users', (req, res) => {
-    return res.send('Updating this user: '+req.body.email);
+    updaters.updateUser(req.body).then((data) => {
+        return res.send(data);
+    })
 })
 app.delete('/users/:email', (req, res) => {
-    return res.send('Deleted user: '+req.params.email);
+    removers.removeUser(req.params.email).then((data) => {
+        return res.send(data);
+    })
 })
 
 
 app.get('/rooms', (_, res) => {
-    return res.send('List of rooms');
+    getters.getAllRooms().then((data) => {
+        return res.send(data);
+    })
 })
 app.get('/rooms/:number', (req, res) => {
-    return res.send('Details of room: '+req.params.number);
+    getters.getRoom(req.params.number).then((data) => {
+        return res.send(data);
+    })
 })
 app.post('/rooms', (req, res) => {
-    return res.send('Creating new room: '+req.body.number);
+    creators.createRoom(req.body).then((data) => {
+        return res.send(data);
+    })
 })
 app.put('/rooms', (req, res) => {
-    return res.send('Updating this room: '+req.body.number);
+    updaters.updateRoom(req.body).then((data) => {
+        return res.send(data);
+    })
 })
 app.delete('/rooms/:number', (req, res) => {
-    return res.send('Deleted room: '+req.params.number);
+    removers.removeRoom(req.params.number).then((data) => {
+        return res.send(data);
+    })
 })
 
 
 app.get('/members', (_, res) => {
-    return res.send('List of members');
+    getters.getAllStaff().then((data) => {
+        return res.send(data);
+    })
 })
 app.get('/members/:contact', (req, res) => {
-    return res.send('Details of member: '+req.params.contact);
+    getters.getStaff(req.params.contact).then((data) => {
+        return res.send(data);
+    })
 })
 app.post('/members', (req, res) => {
-    return res.send('Creating new member: '+req.body.contact);
+    creators.createStaff(req.body).then((data) => {
+        return res.send(data);
+    })
 })
 app.put('/members', (req, res) => {
-    return res.send('Updating this member: '+req.body.contact);
+    updaters.updateStaff(req.body).then((data) => {
+        return res.send(data);
+    })
 })
 app.delete('/members/:contact', (req, res) => {
-    return res.send('Deleted member: '+req.params.contact);
+    removers.removeStaff(req.params.contact).then((data) => {
+        return res.send(data);
+    })
 })
 
 
 app.post('/accounts/bills', (req, res) => {
-    return res.send('Creating new bill: '+req.body.number)
+    creators.createBill(req.body).then((data) => {
+        return res.send(data);
+    })
 })
 app.put('/accounts/bills', (req, res) => {
-    return res.send('List of bills from '+req.body.dateFrom+' to '+req.body.dateTo)
+    getters.getBillsWithinTime(req.body).then((data) => {
+        return res.send(data);
+    })
 })
 app.get('/accounts/bills/:number', (req, res) => {
-    return res.send('Details of bill: '+req.params.number)
+    getters.getBill(req.params.number).then((data) => {
+        return res.send(data);
+    })
 })
 app.post('/accounts', (req, res) => {
-    return res.send('Aggregating from: '+req.body.dateFrom+' to '+req.body.dateTo)
+    getters.aggregateBillsWithinTime(req.body).then((data) => {
+        return res.send(data);
+    })
+})
+app.delete('/accounts/bills/:number', (req, res) => {
+    removers.removeBill(req.params.number).then(data => {
+        return res.send(data);
+    })
 })
 
 app.listen(port, () => initiateConnection(dbURL))
